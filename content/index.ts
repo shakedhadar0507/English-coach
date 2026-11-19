@@ -2,6 +2,10 @@ import { grammarTopics } from "./grammar";
 import { vocabulary } from "./vocabulary";
 import { listening } from "./listening";
 import { courseA1 } from "./courses/a1";
+import { courseA2 } from "./courses/a2";
+import { courseB1 } from "./courses/b1";
+import { courseB2 } from "./courses/b2";
+import { courseC1 } from "./courses/c1";
 import { assessmentItems, placementListening } from "./assessment";
 import type { ContentBundleInput } from "./validate";
 
@@ -31,6 +35,6 @@ export const bundle: ContentBundleInput = {
   grammar: grammarTopics,
   vocabulary,
   listening: [...listening, ...placementListening],
-  courses: [courseA1],
+  courses: [courseA1, courseA2, courseB1, courseB2, courseC1],
   assessment: assessmentItems,
 };
