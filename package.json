@@ -18,7 +18,8 @@
     "test:e2e": "playwright test",
     "icons": "node scripts/make-icons.mjs",
     "e2e:reset": "tsx scripts/e2e-reset.ts",
-    "content:generate": "tsx --require ./scripts/server-only-shim.cjs scripts/content-generate.ts"
+    "content:generate": "tsx --require ./scripts/server-only-shim.cjs scripts/content-generate.ts",
+    "bootstrap": "tsx --require ./scripts/server-only-shim.cjs scripts/bootstrap.ts"
   },
   "dependencies": {
     "better-auth": "^1.7.26",

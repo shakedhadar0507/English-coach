@@ -5,7 +5,7 @@ services:
     runtime: node
     plan: free
     buildCommand: npm ci && npm run build
-    startCommand: npm start
+    startCommand: npm run bootstrap && npm start
     healthCheckPath: /api/health
     envVars:
       - key: DATABASE_URL
@@ -16,5 +16,9 @@ services:
         sync: false
       - key: AI_PROVIDER
         value: none
+      - key: OWNER_EMAIL
+        sync: false
+      - key: OWNER_PASSWORD
+        sync: false
       - key: AI_FEATURE_REALTIME
         value: "false"

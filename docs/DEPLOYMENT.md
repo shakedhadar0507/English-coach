@@ -14,15 +14,13 @@ Nothing below has been created yet. Every step that creates a resource or costs 
 
 ## Steps
 1. **Database (Neon):** create a *new* project (free plan), copy the pooled connection string (with `sslmode=require`).
-2. **Migrate and seed** from a trusted machine:
-   ```bash
-   DATABASE_URL=... npm run db:migrate
-   DATABASE_URL=... npm run content:seed
-   DATABASE_URL=... AUTH_SECRET=... APP_URL=https://<app>.onrender.com npm run owner:create -- --email <owner email>
-   ```
+2. **Migrate, seed and create the owner:** automatic. The Render start command runs `npm run bootstrap`
+   (`scripts/bootstrap.ts`) before `npm start`: it applies pending migrations, seeds content when the bundle changed,
+   and creates the owner once when `OWNER_EMAIL` and `OWNER_PASSWORD` are set. Remove `OWNER_PASSWORD` after the
+   first successful boot. The manual equivalents (`db:migrate`, `content:seed`, `owner:create`) still work.
 3. **Render:** new Web Service from the GitHub repo (or `render.yaml` blueprint), plan **Free**, Node 24 (`.node-version`).
-   Build `npm ci && npm run build`, start `npm start`. Environment variables: `DATABASE_URL`, `AUTH_SECRET`
-   (`openssl rand -base64 32`), `APP_URL`, optional AI and VAPID variables from `.env.example`.
+   Build `npm ci && npm run build`, start `npm run bootstrap && npm start`. Environment variables: `DATABASE_URL`, `AUTH_SECRET`
+   (`openssl rand -base64 32`), `APP_URL`, `OWNER_EMAIL`, `OWNER_PASSWORD` (first boot only), optional AI and VAPID variables from `.env.example`.
 4. **Verify:** `GET /api/health` returns `{"ok":true,"db":"up"}`; sign in; complete onboarding on the phone.
 5. **Push (optional):** `npx web-push generate-vapid-keys`, set `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`,
    `CRON_SECRET`; schedule `POST /api/cron/reminders` with `Authorization: Bearer $CRON_SECRET` every 15–30 minutes
