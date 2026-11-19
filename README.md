@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# English Coach
 
-## Getting Started
+A private, mobile-first PWA for learning English, built for one owner (Hebrew UI by default, English available).
+It covers all four skills with a structured A1–C1 curriculum, an adaptive placement test, spaced-repetition vocabulary,
+grammar, listening, writing feedback and a speaking coach. AI features are optional and behind feature flags.
 
-First, run the development server:
+> Status of every feature (tested / not verified / blocked): see [PROJECT_STATUS.md](PROJECT_STATUS.md).
 
+## Stack
+- Next.js 16 (App Router, `proxy.ts`), React 19, TypeScript, Tailwind CSS 4
+- PostgreSQL (Neon free tier in production; any Postgres 15+ works) with Row Level Security on every table
+- Better Auth (email + password, **public sign-up disabled**, DB-level allow-list)
+- ts-fsrs for spaced repetition; custom adaptive placement (IRT-style)
+- Optional OpenAI-compatible AI provider (e.g. Gemini free tier or OpenAI), browser Web Speech API for voice
+- Vitest (unit + DB security), Playwright (E2E on an iPhone viewport)
+
+## Quick start (local)
 ```bash
+cp .env.example .env.local          # fill DATABASE_URL, AUTH_SECRET, APP_URL
+npm install
+npm run db:migrate                  # creates schema, roles, RLS
+npm run content:validate && npm run content:seed
+npm run owner:create -- --email you@example.com --name "Your Name"   # prompts for a password
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Scripts
+| Script | What it does |
+|---|---|
+| `db:migrate` | Applies `db/migrations/*.sql` in order (checksummed; refuses edited migrations) |
+| `content:validate` | Validates the curriculum (schema, references, answer keys, Hebrew, levels) |
+| `content:seed` | Validates, then upserts content idempotently (refuses on validation errors) |
+| `content:generate` | Optional AI lesson **drafts** to `content/drafts/` (never auto-published) |
+| `owner:create` / `owner:reset-password` | Owner account management (no sign-up page exists) |
+| `test` / `test:integration` / `test:e2e` | Unit, DB security, end-to-end tests |
+| `e2e:reset` | Resets a **disposable** test DB (requires `E2E_ALLOW_RESET=yes`) |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Documentation
+- [Architecture](docs/ARCHITECTURE.md) · [Database](docs/DATABASE.md) · [Curriculum](docs/CURRICULUM.md)
+- [AI integration and costs](docs/AI_INTEGRATION.md) · [Deployment](docs/DEPLOYMENT.md)
+- [Testing](docs/TESTING.md) · [Security](docs/SECURITY.md) · [Project status](PROJECT_STATUS.md)

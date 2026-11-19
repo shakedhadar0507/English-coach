@@ -8,6 +8,7 @@ const eslintConfig = defineConfig([
   {
     // React Compiler advisory rules: the flagged code paths are browser-only detection effects,
     // Date.now() timing refs and a debounce ref, all verified by E2E tests. Kept visible as warnings.
+    files: ["**/*.{ts,tsx,js,jsx,mjs}"],
     rules: {
       "react-hooks/set-state-in-effect": "warn",
       "react-hooks/purity": "warn",
