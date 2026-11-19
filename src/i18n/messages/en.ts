@@ -161,5 +161,10 @@ export const en: Messages = {
     installButton: "Install the app", installed: "The app is installed",
   },
   offline: { title: "You're offline", body: "Downloaded lessons are available. The coach and writing feedback need a connection." },
+  errors: {
+    title: "My mistakes", subtitle: "Mistakes you made more than once, with focused practice",
+    none: "No recurring mistakes right now. Well done.", practice: "Focused practice", markResolved: "Mark as resolved", resolved: "Marked as resolved",
+    wrong: "What you wrote", right: "Correct", times: "{n} times", noPractice: "No exercises for this topic yet.",
+  },
   levels: { A1: "Beginner", A2: "Elementary", B1: "Intermediate", B2: "Upper intermediate", C1: "Advanced", C2: "Proficient" },
 };
