@@ -150,6 +150,30 @@ test.describe.serial("English Coach", () => {
     await page.waitForTimeout(800);
   });
 
+  test("floating notes button saves a note for the current screen and can be dragged", async () => {
+    await shared.goto("/progress");
+    const btn = shared.locator("[data-feedback-button]");
+    await expect(btn).toBeVisible();
+    const box = (await btn.boundingBox())!;
+    await shared.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    await shared.mouse.down();
+    await shared.mouse.move(box.x + 120, box.y - 200, { steps: 8 });
+    await shared.mouse.up();
+    const moved = (await btn.boundingBox())!;
+    expect(Math.abs(moved.y - box.y)).toBeGreaterThan(100);
+    await expect(shared.getByRole("dialog")).toHaveCount(0);
+    await btn.click();
+    const dialog = shared.getByRole("dialog");
+    await expect(dialog).toContainText("/progress");
+    const note = `e2e note ${Date.now()}`;
+    await dialog.locator("textarea").fill(note);
+    await dialog.getByRole("button", { name: "שמירה" }).click();
+    await expect(dialog.getByText(note)).toBeVisible();
+    await shared.reload();
+    const after = (await btn.boundingBox())!;
+    expect(Math.abs(after.y - moved.y)).toBeLessThan(4);
+  });
+
   test("PWA manifest and service worker are served", async ({ request }) => {
     const m = await request.get("/manifest.webmanifest");
     expect(m.ok()).toBeTruthy();

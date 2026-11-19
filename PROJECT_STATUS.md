@@ -25,6 +25,7 @@ Legend: ✅ implemented and tested · 🟡 implemented, not fully verified · �
 | Writing tasks + history | ✅ / 🟡 | Without AI: saved with honest notice (E2E page). AI feedback verified only against a mock provider |
 | Recurring mistakes page + focused practice | 🟡 | Page renders; errors are recorded (verified in DB); focused-practice flow not E2E-tested |
 | Progress dashboard (streaks, time, activity, skills, mistakes, AI cost) | ✅ | Renders real data in E2E |
+| Floating notes button (draggable, notes saved per screen with context, earlier notes and their status shown) | ✅ | E2E: drag, position persists after reload, note saved and listed |
 | Settings (all preferences, goals, budget ≤ $15, export, delete, sign out, install guide) | ✅ / 🟡 | Theme/language E2E-tested; export + delete verified via API script (`tests/api/data-flow.mjs`: no answer keys in export, confirmation required, onboarding reset). Push toggle needs a device |
 
 ## AI

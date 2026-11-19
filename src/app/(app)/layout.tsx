@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { Settings } from "lucide-react";
 import { AppNav } from "@/components/app-nav";
 import { OfflineBanner } from "@/components/offline-banner";
+import { FeedbackButton } from "@/components/feedback-button";
 import { requireUser } from "@/lib/server/session";
 import { withUser } from "@/lib/server/db";
 import { getProfile } from "@/lib/server/repo/user";
@@ -25,6 +26,7 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
         <OfflineBanner />
         <main id="main" className="mx-auto max-w-3xl px-4 pt-2 pb-28 md:pt-8 md:pb-12">{children}</main>
       </div>
+      <FeedbackButton />
     </div>
   );
 }
