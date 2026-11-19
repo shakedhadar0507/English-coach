@@ -25,7 +25,7 @@ export const courseA1: Course = {
             intro_he: "בעברית אומרים 'אני סטודנט'. באנגלית חייבים פועל: I am a student.",
             intro_en: "English sentences need a verb. Use am / is / are.",
             exercises: [
-              mc("I ___ a student at Reichman University.", ["am", "is", "are", "be"], 0, { grammar: "sentence-structure", he: "עם I משתמשים ב־am.", en: "Use 'am' with I." }),
+              mc("I ___ a student at Tel Aviv University.", ["am", "is", "are", "be"], 0, { grammar: "sentence-structure", he: "עם I משתמשים ב־am.", en: "Use 'am' with I." }),
               mc("My parents ___ from Haifa.", ["is", "am", "are", "be"], 2, { grammar: "sentence-structure", he: "my parents זה רבים, ולכן are.", en: "'My parents' is plural, so we use 'are'." }),
               fill("___ is cold today.", [["It"]], { grammar: "sentence-structure", he: "באנגלית חייבים נושא. כשאין נושא אמיתי משתמשים ב־It.", en: "English needs a subject. Use the dummy subject 'It'." }),
               fix("She engineer.", ["She is an engineer.", "She's an engineer."], { grammar: "sentence-structure", he: "חסרים is ו־an. לפני מקצוע ביחיד צריך מילית.", en: "Missing 'is' and the article 'an'." }),
@@ -50,7 +50,7 @@ export const courseA1: Course = {
             slug: "a1-introductions-speaking", kind: "speaking", minutes: 4,
             title_en: "Say it out loud", title_he: "לומר בקול",
             exercises: [
-              speak("Introduce yourself in 3–4 sentences: name, where you live, what you do, and one hobby.", "הצג את עצמך ב־3 עד 4 משפטים: שם, איפה אתה גר, מה אתה עושה ותחביב אחד.", ["live", "work", "like"], "Hi, I'm Shaked. I live in Tel Aviv. I'm a business student, and I also manage a running community. I like running in the morning.", { he: "שים לב שבכל משפט יש נושא ופועל.", en: "Make sure every sentence has a subject and a verb." }),
+              speak("Introduce yourself in 3–4 sentences: name, where you live, what you do, and one hobby.", "הצג את עצמך ב־3 עד 4 משפטים: שם, איפה אתה גר, מה אתה עושה ותחביב אחד.", ["live", "work", "like"], "Hi, I'm Noa. I live in Tel Aviv. I'm a business student, and I also manage a running community. I like running in the morning.", { he: "שים לב שבכל משפט יש נושא ופועל.", en: "Make sure every sentence has a subject and a verb." }),
               write("Write one sentence about a family member using 'is'.", "כתוב משפט אחד על בן משפחה, עם המילה is.", ["is"], "My sister is a nurse in Haifa.", { grammar: "sentence-structure", he: "משפט עם נושא, is, ותיאור.", en: "Subject + is + description." }),
             ],
           },
