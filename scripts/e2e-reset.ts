@@ -15,7 +15,7 @@ async function main() {
   await pool.query("delete from public.auth_rate_limits");
   await pool.query("delete from private.allowed_emails");
   await pool.end();
-  execFileSync("npx", ["tsx", "--conditions=react-server", "scripts/owner.ts", "create", "--email", process.env.E2E_EMAIL ?? "owner@example.com", "--name", "Owner"],
+  execFileSync("npx", ["tsx", "--require", "./scripts/server-only-shim.cjs", "scripts/owner.ts", "create", "--email", process.env.E2E_EMAIL ?? "owner@example.com", "--name", "Owner"],
     { stdio: "inherit", env: { ...process.env, OWNER_PASSWORD: process.env.E2E_PASSWORD ?? "TestPassword123" } });
 }
 main().catch((e) => { console.error(e.message); process.exit(1); });

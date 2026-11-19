@@ -11,13 +11,14 @@
     "db:migrate": "tsx scripts/migrate.ts",
     "content:validate": "tsx scripts/content-validate.ts",
     "content:seed": "tsx scripts/content-seed.ts",
-    "owner:create": "tsx --conditions=react-server scripts/owner.ts create",
-    "owner:reset-password": "tsx --conditions=react-server scripts/owner.ts reset-password",
+    "owner:create": "tsx --require ./scripts/server-only-shim.cjs scripts/owner.ts create",
+    "owner:reset-password": "tsx --require ./scripts/server-only-shim.cjs scripts/owner.ts reset-password",
     "test": "vitest run tests/unit",
     "test:integration": "vitest run tests/integration",
     "test:e2e": "playwright test",
     "icons": "node scripts/make-icons.mjs",
-    "e2e:reset": "tsx scripts/e2e-reset.ts"
+    "e2e:reset": "tsx scripts/e2e-reset.ts",
+    "content:generate": "tsx --require ./scripts/server-only-shim.cjs scripts/content-generate.ts"
   },
   "dependencies": {
     "better-auth": "^1.7.26",
