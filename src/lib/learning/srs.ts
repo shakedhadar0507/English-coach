@@ -56,7 +56,7 @@ export function review(state: CardState, grade: Grade, now: Date): CardState {
 
 export function retrievability(state: CardState, now: Date): number {
   if (state.fsrs_state === State.New) return 0;
-  return scheduler.get_retrievability(toCard(state), now, false) as number;
+  return scheduler.retrievability(toCard(state), now);
 }
 
 export { Rating, State };

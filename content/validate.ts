@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { z } from "zod";
-import { AssessmentItem, Course, Exercise, GrammarTopic, LEVELS, ListeningMaterial, VocabEntry, type Level } from "./schema";
+import { AssessmentItem, Course, Exercise, GrammarTopic, LEVELS, ListeningMaterial, VocabEntry, type Level, type AssessmentInput, type CourseInput, type GrammarInput, type ListeningInput, type VocabInput } from "./schema";
 import { normalizeAnswer } from "../src/lib/learning/normalize";
 
 export interface Issue { severity: "error" | "warning"; entity: string; slug: string; code: string; message: string }
@@ -13,10 +13,18 @@ export interface ContentBundle {
   assessment: AssessmentItem[];
 }
 
+export interface ContentBundleInput {
+  grammar: GrammarInput[];
+  vocabulary: VocabInput[];
+  listening: ListeningInput[];
+  courses: CourseInput[];
+  assessment: AssessmentInput[];
+}
+
 const lvl = (l: Level) => LEVELS.indexOf(l);
 const HEBREW = /[֐-׿]/;
 
-export function validateBundle(input: ContentBundle): { issues: Issue[]; checksum: string; counts: Record<string, number>; parsed: ContentBundle } {
+export function validateBundle(input: ContentBundleInput): { issues: Issue[]; checksum: string; counts: Record<string, number>; parsed: ContentBundle } {
   const issues: Issue[] = [];
   const add = (severity: Issue["severity"], entity: string, slug: string, code: string, message: string) =>
     issues.push({ severity, entity, slug, code, message });

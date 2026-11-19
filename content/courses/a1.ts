@@ -1,4 +1,4 @@
-import type { Course } from "../schema";
+import type { CourseInput as Course } from "../schema";
 import { dictation, err, essay, fill, fix, listen, mc, order, speak, tr, write } from "../dsl";
 
 export const courseA1: Course = {

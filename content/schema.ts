@@ -142,3 +142,10 @@ export const AssessmentItem = z.object({
 export type AssessmentItem = z.infer<typeof AssessmentItem>;
 
 export const Category = z.object({ slug: z.string(), title_en: z.string(), title_he: z.string() });
+
+/** Authoring (input) types: fields with defaults are optional. */
+export type CourseInput = z.input<typeof Course>;
+export type VocabInput = z.input<typeof VocabEntry>;
+export type GrammarInput = z.input<typeof GrammarTopic>;
+export type ListeningInput = z.input<typeof ListeningMaterial>;
+export type AssessmentInput = z.input<typeof AssessmentItem>;

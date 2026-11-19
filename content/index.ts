@@ -3,7 +3,7 @@ import { vocabulary } from "./vocabulary";
 import { listening } from "./listening";
 import { courseA1 } from "./courses/a1";
 import { assessmentItems, placementListening } from "./assessment";
-import type { ContentBundle } from "./validate";
+import type { ContentBundleInput } from "./validate";
 
 export const categories = [
   { slug: "everyday-conversations", title_en: "Everyday Conversations", title_he: "שיחות יומיומיות" },
@@ -27,7 +27,7 @@ export const levels = [
   { code: "C2", ordinal: 6, title_en: "Proficient", title_he: "שליטה מלאה", description_en: "Can understand virtually everything heard or read and express themselves with precision and nuance.", description_he: "מבין כמעט כל דבר ששומע או קורא, ומתבטא בדיוק ובדקות." },
 ] as const;
 
-export const bundle: ContentBundle = {
+export const bundle: ContentBundleInput = {
   grammar: grammarTopics,
   vocabulary,
   listening: [...listening, ...placementListening],
