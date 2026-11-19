@@ -1,7 +1,7 @@
 # Project status
 
 Last updated: 2026-11-19. Verified locally against Postgres 16 with a production build (`next build` + `next start`).
-Nothing is deployed yet: deployment waits for the owner's approval and a GitHub repository (see docs/DEPLOYMENT.md).
+Deployed 2026-11-19 on a free Render web service with a free Neon Postgres project (see docs/DEPLOYMENT.md).
 
 Legend: ✅ implemented and tested · 🟡 implemented, not fully verified · ⛔ blocked · ❌ not implemented
 
@@ -45,7 +45,7 @@ Legend: ✅ implemented and tested · 🟡 implemented, not fully verified · �
 | Offline answering with outbox + hashed offline grading | 🟡 | Code paths exist; not exercised by automated tests |
 | Push reminders (VAPID, cron endpoint, dedupe per day) | 🟡 | Code complete; needs deployed HTTPS + keys to verify delivery |
 | iPhone install (Add to Home Screen) | 🟡 | Manifest + apple meta in place; not yet tried on a real iPhone |
-| Deployment on Render + Neon | ⛔ | Waiting for owner approval and a GitHub repository |
+| Deployment on Render + Neon | ✅ / 🟡 | Live; startup log shows migrations, seed and owner bootstrap; DB verified (214 exercises, 117 words, 1 owner). Pages not yet checked from a phone (the build container cannot reach the public URL) |
 
 ## Content
 | Item | Status | Notes |
