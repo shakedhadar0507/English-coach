@@ -1,26 +1,115 @@
 @import "tailwindcss";
 
+/* Dark mode follows data-theme on <html>; it is set server-side for an explicit
+   choice and by an inline script for "system". */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --c-primary: #7655d6;
+  --c-primary-strong: #5f41c0;
+  --c-accent: #a58bf2;
+  --c-text: #1d2433;
+  --c-muted: #5b6375;
+  --c-surface: #f5f4fa;
+  --c-card: #ffffff;
+  --c-border: #e4e1ef;
+  --c-success: #237f59;     /* darker than #30A875 for AA text contrast */
+  --c-success-bg: #e5f5ee;
+  --c-danger: #c2410c;
+  --c-danger-bg: #fdeee6;
+  --c-warning: #a16207;
+  --c-warning-bg: #fdf5df;
+  --c-primary-bg: #efeafc;
+  --c-on-primary: #ffffff;
+  --c-success-brand: #30a875;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --c-primary: #a58bf2;
+  --c-primary-strong: #c0aefa;
+  --c-accent: #7655d6;
+  --c-text: #eceaf5;
+  --c-muted: #a7a3b8;
+  --c-surface: #12111a;
+  --c-card: #1c1a27;
+  --c-border: #2e2b3d;
+  --c-success: #5fd3a0;
+  --c-success-bg: #12301f;
+  --c-danger: #fb923c;
+  --c-danger-bg: #3a1d10;
+  --c-warning: #facc15;
+  --c-warning-bg: #352b0a;
+  --c-primary-bg: #2a2342;
+  --c-on-primary: #14111f;
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--c-primary);
+  --color-primary-strong: var(--c-primary-strong);
+  --color-primary-bg: var(--c-primary-bg);
+  --color-on-primary: var(--c-on-primary);
+  --color-accent: var(--c-accent);
+  --color-text: var(--c-text);
+  --color-muted: var(--c-muted);
+  --color-surface: var(--c-surface);
+  --color-card: var(--c-card);
+  --color-border: var(--c-border);
+  --color-success: var(--c-success);
+  --color-success-bg: var(--c-success-bg);
+  --color-success-brand: var(--c-success-brand);
+  --color-danger: var(--c-danger);
+  --color-danger-bg: var(--c-danger-bg);
+  --color-warning: var(--c-warning);
+  --color-warning-bg: var(--c-warning-bg);
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Hebrew", "Arial Hebrew", Arial, sans-serif;
+  --radius-card: 1.25rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  -webkit-text-size-adjust: 100%;
+  background: var(--c-surface);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--c-surface);
+  color: var(--c-text);
+  font-family: var(--font-sans);
+  min-height: 100dvh;
+  -webkit-tap-highlight-color: transparent;
 }
+
+/* English learning content inside Hebrew screens keeps LTR order. */
+.en {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+.en-block {
+  direction: ltr;
+  text-align: left;
+}
+
+:focus-visible {
+  outline: 3px solid var(--c-accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+.safe-top { padding-top: env(safe-area-inset-top); }
+
+@keyframes pop-in {
+  from { transform: scale(0.97); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.animate-pop { animation: pop-in 180ms ease-out; }
