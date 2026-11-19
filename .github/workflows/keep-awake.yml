@@ -1,0 +1,15 @@
+# Keeps the free Render instance awake by requesting the health endpoint every 10 minutes.
+# Free Render services sleep after 15 idle minutes; GitHub may delay scheduled runs, so an
+# occasional cold start can still happen. Disable this workflow to stop it.
+name: keep-awake
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+permissions: {}
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - run: curl -fsS --max-time 90 --retry 2 https://english-coach-clo7.onrender.com/api/health
