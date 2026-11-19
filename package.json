@@ -5,12 +5,21 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "start": "next start -p ${PORT:-3000}",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "db:migrate": "tsx scripts/migrate.ts",
+    "content:validate": "tsx scripts/content-validate.ts",
+    "content:seed": "tsx scripts/content-seed.ts",
+    "owner:create": "tsx --conditions=react-server scripts/owner.ts create",
+    "owner:reset-password": "tsx --conditions=react-server scripts/owner.ts reset-password",
+    "test": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "test:e2e": "playwright test",
+    "icons": "node scripts/make-icons.mjs",
+    "e2e:reset": "tsx scripts/e2e-reset.ts"
   },
   "dependencies": {
-    "@supabase/ssr": "^0.12.7",
-    "@supabase/supabase-js": "^2.119.2",
     "better-auth": "^1.7.26",
     "clsx": "^2.1.1",
     "lucide-react": "^1.76.0",
@@ -37,5 +46,8 @@
     "tsx": "^4.23.15",
     "typescript": "^5",
     "vitest": "^5.1.1"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

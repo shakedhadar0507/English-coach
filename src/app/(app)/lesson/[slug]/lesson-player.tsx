@@ -119,7 +119,7 @@ export function LessonPlayer({ data, planItemId }: { data: LessonData; planItemI
           {intro && <p className="leading-relaxed">{intro}</p>}
           <p className="text-sm text-muted">{exercises.length} {t.player.exercisesDone}</p>
           {error && <Notice tone="danger">{error}</Notice>}
-          <Button block onClick={start}>{data.session && data.session.position > 0 ? t.common.resume : t.common.start}</Button>
+          {exercises.length === 0 ? <Notice tone="warning">{t.common.empty}</Notice> : <Button block onClick={start}>{data.session && data.session.position > 0 ? t.common.resume : t.common.start}</Button>}
         </Card>
       </div>
     );

@@ -15,7 +15,7 @@ export const PreferencesPatch = z.object({
   timezone: z.string().min(1).max(64).refine((tz) => { try { new Intl.DateTimeFormat("en", { timeZone: tz }); return true; } catch { return false; } }, "invalid timezone"),
   reminder_enabled: z.boolean(),
   reminder_time: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/),
-  monthly_ai_budget_usd: z.number().min(0).max(1000),
+  monthly_ai_budget_usd: z.number().min(0).max(15),
   vocab_new_per_day: z.number().int().min(0).max(50),
 }).partial().strict();
 

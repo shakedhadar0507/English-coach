@@ -188,12 +188,12 @@ export function ExerciseView({ exercise, listening, accent, voiceRate, mode, att
             return (
               <button key={o.id} type="button" role="radio" aria-checked={isSel} disabled={locked || busy}
                 onClick={() => setSelected(multi ? (isSel ? selected.filter((s) => s !== o.id) : [...selected, o.id]) : [o.id])}
-                className={cn("min-h-14 rounded-2xl border-2 px-4 py-3 text-start text-[17px] font-medium transition-colors en-block",
+                className={cn("min-h-14 rounded-2xl border-2 px-4 py-3 text-start text-[17px] font-medium transition-colors",
                   !showFb && (isSel ? "border-primary bg-primary-bg" : "border-border bg-card hover:border-accent"),
                   showFb && isKey && "border-success bg-success-bg",
                   showFb && isSel && !isKey && "border-danger bg-danger-bg",
                   showFb && !isSel && !isKey && "border-border bg-card opacity-70")}
-                dir="ltr" lang="en">
+                {...(/[\u0590-\u05FF]/.test(o.text) ? { dir: "rtl", lang: "he" } : { dir: "ltr", lang: "en" })}>
                 <span className="flex items-center justify-between gap-2">{o.text}
                   {showFb && isKey && <Check size={20} className="text-success" aria-hidden />}
                   {showFb && isSel && !isKey && <X size={20} className="text-danger" aria-hidden />}
@@ -210,7 +210,7 @@ export function ExerciseView({ exercise, listening, accent, voiceRate, mode, att
             const isSel = selected.includes(o.id);
             const isKey = showFb && feedback?.correctOptionIds?.includes(o.id);
             return (
-              <button key={o.id} type="button" disabled={locked || busy} onClick={() => setSelected([o.id])} aria-pressed={isSel}
+              <button key={o.id} type="button" data-option disabled={locked || busy} onClick={() => setSelected([o.id])} aria-pressed={isSel}
                 className={cn("rounded-xl border-2 px-3 py-2 font-medium",
                   !showFb && (isSel ? "border-primary bg-primary-bg" : "border-border bg-card"),
                   showFb && isKey && "border-success bg-success-bg", showFb && isSel && !isKey && "border-danger bg-danger-bg",
@@ -226,7 +226,7 @@ export function ExerciseView({ exercise, listening, accent, voiceRate, mode, att
             <span key={i}>
               {part}
               {i < arr.length - 1 && (
-                <input ref={i === 0 ? (el) => { firstInput.current = el; } : undefined} value={blanks[i]} disabled={locked || busy}
+                <input data-blank ref={i === 0 ? (el) => { firstInput.current = el; } : undefined} value={blanks[i]} disabled={locked || busy}
                   onChange={(e) => setBlanks(blanks.map((b, j) => (j === i ? e.target.value : b)))}
                   onKeyDown={(e) => { if (e.key === "Enter") submit(); }}
                   aria-label={`${t.player.typeAnswer} ${i + 1}`} autoCapitalize="off" autoCorrect="off" spellCheck={false}
@@ -252,7 +252,7 @@ export function ExerciseView({ exercise, listening, accent, voiceRate, mode, att
           </div>
           <div className="flex flex-wrap gap-2">
             {tokens.map((tok, ti) => (
-              <button key={ti} type="button" disabled={order.includes(ti) || locked || busy} onClick={() => setOrder([...order, ti])}
+              <button key={ti} type="button" data-token disabled={order.includes(ti) || locked || busy} onClick={() => setOrder([...order, ti])}
                 className={cn("rounded-xl border border-border bg-card px-3 py-2 text-lg font-medium", order.includes(ti) && "opacity-30")}>{tok}</button>
             ))}
           </div>

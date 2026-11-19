@@ -8,8 +8,10 @@ export interface SessionUser { id: string; email: string; name: string }
 
 /** Verified session user for this request (memoized per request). */
 export const getSessionUser = cache(async (): Promise<SessionUser | null> => {
+  // headers() must stay outside the try so Next's dynamic-rendering signal is not swallowed.
+  const h = await headers();
   try {
-    const session = await getAuth().api.getSession({ headers: await headers() });
+    const session = await getAuth().api.getSession({ headers: h });
     if (!session?.user) return null;
     return { id: session.user.id, email: session.user.email, name: session.user.name };
   } catch (e) {
