@@ -1,7 +1,7 @@
 # Project status
 
 Last updated: 2026-11-19. Verified locally against Postgres 16 with a production build (`next build` + `next start`).
-Deployed 2026-11-19 on a free Render web service with a free Neon Postgres project (see docs/DEPLOYMENT.md).
+Deployed on Vercel (free Hobby plan) since 2026-11-24, with a free Neon Postgres project; the earlier free Render service slept when idle (see docs/DEPLOYMENT.md).
 
 Legend: ✅ implemented and tested · 🟡 implemented, not fully verified · ⛔ blocked · ❌ not implemented
 
@@ -46,7 +46,7 @@ Legend: ✅ implemented and tested · 🟡 implemented, not fully verified · �
 | Offline answering with outbox + hashed offline grading | 🟡 | Code paths exist; not exercised by automated tests |
 | Push reminders (VAPID, cron endpoint, dedupe per day) | 🟡 | Code complete; needs deployed HTTPS + keys to verify delivery |
 | iPhone install (Add to Home Screen) | 🟡 | Manifest + apple meta in place; not yet tried on a real iPhone |
-| Deployment on Render + Neon | ✅ / 🟡 | Live; startup log shows migrations, seed and owner bootstrap; DB verified (214 exercises, 117 words, 1 owner). Pages not yet checked from a phone (the build container cannot reach the public URL) |
+| Deployment on Vercel + Neon | ✅ | Health returns db up; signed in as the owner and loaded 8 main screens on the live site in 0.3–0.5 s each with no page errors; notes button present |
 
 ## Content
 | Item | Status | Notes |
@@ -57,7 +57,7 @@ Legend: ✅ implemented and tested · 🟡 implemented, not fully verified · �
 | Recorded human audio | ❌ | Listening uses on-device text-to-speech |
 
 ## Known limitations
-- Free Render instances sleep when idle; the first load after a pause is slow.
+- Vercel Hobby cron jobs run at most once a day, so push reminders need an external scheduler or a daily schedule.
 - Speech recognition quality and voice availability vary by device and browser.
 - No Content-Security-Policy header yet.
 - Lint reports warnings from React Compiler advisory rules (downgraded from errors, see `eslint.config.mjs`).
