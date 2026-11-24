@@ -8,10 +8,17 @@ import { getPool } from "./db";
  * Accounts are created only with `npm run owner:create` (and the database
  * additionally rejects any email not in private.allowed_emails).
  */
+/** Public origin: APP_URL, else the Vercel production domain (set automatically on Vercel). */
+export function appUrl() {
+  if (process.env.APP_URL) return process.env.APP_URL;
+  const host = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+  return host ? `https://${host}` : undefined;
+}
+
 export function createAuth(opts: { allowSignUp?: boolean } = {}) {
   return betterAuth({
     appName: "English Coach",
-    baseURL: process.env.APP_URL,
+    baseURL: appUrl(),
     secret: process.env.AUTH_SECRET,
     database: getPool(),
     emailAndPassword: { enabled: true, disableSignUp: !opts.allowSignUp, minPasswordLength: 10, autoSignIn: false },

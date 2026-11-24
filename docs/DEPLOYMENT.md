@@ -34,3 +34,13 @@ Home Screen (iOS 16.4+), then enabling them in Settings inside the app.
 - Password reset: `npm run owner:reset-password -- --email <email>` (signs out all sessions).
 - Content update: edit `content/`, `npm run content:validate`, `npm run content:seed`.
 - Backups: Neon free tier keeps a short point-in-time restore window; use `GET /api/data/export` for a personal JSON backup.
+
+## Vercel (free Hobby plan, recommended: no cold-start wait)
+Render's free instance sleeps after 15 idle minutes, and its 750 free hours are shared across the workspace.
+Vercel runs the app as serverless functions, so there is no sleeping server.
+1. Import the GitHub repository at https://vercel.com/new (framework is detected; `vercel.json` sets the build to
+   `npm run bootstrap && npm run build`, so migrations and content seeding run on every deploy, region `pdx1` next to Neon).
+2. Environment variables (Production and Preview): `DATABASE_URL` (Neon pooled URL), `AUTH_SECRET`, `AI_PROVIDER=none`,
+   `AI_FEATURE_REALTIME=false`. `APP_URL` is optional: without it the app uses `VERCEL_PROJECT_PRODUCTION_URL`.
+3. Hobby limits that matter here: cron jobs run at most once a day, a function may run up to about 60 seconds,
+   and the plan is for personal non-commercial use.
